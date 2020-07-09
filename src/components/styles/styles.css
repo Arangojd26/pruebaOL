@@ -1,0 +1,30 @@
+.Card-Login {
+
+  box-shadow: 0 0 27px 0 rgba(84, 84, 84, 0.62);
+}
+#Position-Card {
+
+    
+    position: absolute;
+    width: 100%;
+    top: 70%;
+}
+.card, .button { 
+
+    border-radius: 50px; 
+} 
+.input-group{
+
+    box-shadow: 0 0 0px 0 rgba(84, 84, 84, 0.82);
+}
+/* @media only screen and (min-width: 1200px) {
+  #Card-Login {
+    left: 0%;
+  }
+}
+@media only screen and (min-width: 1390px) {
+    #Card-Login {
+      width: 100%;
+    }
+  } */
+

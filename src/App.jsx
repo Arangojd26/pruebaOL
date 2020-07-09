@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Inicio from './components/Inicio';
 import {auth} from './firebase'
+import Sidenav from './components/Sidenav';
 
 function App() {
 
@@ -22,7 +23,8 @@ function App() {
 
   return firebaseUser !== false ? (
     <Router>
-      <div className="container">
+      <div className="container-fluid">
+        <Sidenav />
         <Navbar firebaseUser={firebaseUser} />
         <Switch>
           <Route path="/" exact>
