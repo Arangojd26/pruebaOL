@@ -1,30 +1,76 @@
 .Card-Login {
-
   box-shadow: 0 0 27px 0 rgba(84, 84, 84, 0.62);
 }
 #Position-Card {
+  position: absolute;
+  width: 100%;
+  top: 70%;
+}
+.card,
+.button {
+  border-radius: 50px;
+}
+.input-group {
+  box-shadow: 0 0 0px 0 rgba(84, 84, 84, 0.82);
+}
+/* #sidebar{
+    background: #1ee661;
+    color: #fff;
+    transition: all 0.3s;
+} */
+@media (min-width: 992px) {
+  .sidebar {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    /* z-index: -100;  */
+    padding: 0;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+  }
 
+  .sidebar-sticky {
+    position: -webkit-sticky;
+    /* position: sticky; */
+    top: 0px; /* Height of navbar */
+    height: calc(100vh - 0px);
+    padding-top: 0rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  }
+}
+#nav-horizontal {
+
+  margin-left: 15%;
+}
+.content-table{
+    margin-top: -23px;
+    background-color:rgb(255, 255, 255);
     
-    position: absolute;
-    width: 100%;
-    top: 70%;
+    /* left: 15%; */
 }
-.card, .button { 
+.position-container{
 
-    border-radius: 50px; 
-} 
-.input-group{
-
-    box-shadow: 0 0 0px 0 rgba(84, 84, 84, 0.82);
+    left: 15%;
 }
+.content-filters{
+
+    margin-top: -23px;
+    background-color:rgb(255, 255, 255);
+    left: 14%;
+}
+
 /* @media only screen and (min-width: 1200px) {
   #Card-Login {
     left: 0%;
   }
-}
-@media only screen and (min-width: 1390px) {
-    #Card-Login {
-      width: 100%;
+} */
+@media only screen and (max-width: 1200px) {
+    .position-container, .content-filters {
+      left: 17%;
     }
-  } */
-
+  }
+  @media only screen and (max-width: 992px) {
+    .position-container, .content-filters {
+      left: 0%;
+    }
+  }
