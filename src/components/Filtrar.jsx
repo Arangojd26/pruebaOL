@@ -1,4 +1,5 @@
 import React from 'react'
+import './styles/styles.css'
 
 const Filtrar = () => {
     
@@ -70,13 +71,13 @@ const Filtrar = () => {
             //value={pass}
           />
           <div className="row py-4">
-            <div className="col-lg-6">
-              <button className="btn-primary btn-block py-2 " type="input">
+            <div className="col-xl-6 col-lg-6">
+              <button className="btn btn-primary bg-custom-2 w-100 py-2 filtrar" type="input">
                 Filtrar
               </button>
             </div>
-            <div className="col-lg-6">
-              <button className="btn-primary btn-block py-2  " type="input">
+            <div className="col-xl-6 col-lg-6">
+              <button className="btn btn-outline w-100 py-2 limpiar" type="input">
                 Limpiar
               </button>
             </div>

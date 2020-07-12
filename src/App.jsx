@@ -3,9 +3,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Inicio from './components/Inicio';
-import {auth, db} from './firebase'
-import AddUserForm from './components/AddUserForm';
-import UserTable from './components/UserTable';
+import {auth} from './firebase'
 
 
 
@@ -24,19 +22,11 @@ function App() {
     })
   }, [])
 
-
-  // Agregar Usuarios
-  const greeting = (user) => {
-    console.log(user)
-  };
-
   return firebaseUser !== false ? (
     <Router>
       <div className="container-fluid">
         
         <Navbar firebaseUser={firebaseUser} />
-        {/* <AddUserForm value={greeting} /> */}
-        
         <Switch>
           <Route path="/" exact>
             <Inicio />

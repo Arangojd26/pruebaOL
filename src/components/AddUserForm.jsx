@@ -1,9 +1,12 @@
+// Componente donde se hace el crud completo
+
 import React from 'react'
 import { db} from '../firebase'
 import { withRouter } from "react-router-dom";
 
 
-const AddUserForm = () => {
+const AddUserForm = ({cambiarACrear}) => {
+
 
     const [registros, setRegistros] = React.useState([])
     const [nombres, setNombres] = React.useState('')
@@ -17,6 +20,8 @@ const AddUserForm = () => {
     const [id, setId] = React.useState('')
     
     const [modoEdicion, setModoEdicion] = React.useState(false)
+
+    
 
     React.useEffect(() => {
 
@@ -86,7 +91,7 @@ const AddUserForm = () => {
         let mensaje = 'está vacio'
 
         if(!(nombres.trim()) || !(apellidos.trim()) || !(identificacion.trim()) || !(rol.trim())
-        || !(estado.trim()) || !(contraseña.trim()) || !(telefono.trim()) || !(correo.trim()) || !(id.trim()))
+        || !(estado.trim()) || !(contraseña.trim()) || !(telefono.trim()) || !(correo.trim()))
         {
             console.log(mensaje)
             
@@ -142,6 +147,8 @@ const AddUserForm = () => {
 
         setModoEdicion(false)
     }
+    
+    
 
     const editar = async (e) => {
         e.preventDefault()
@@ -264,6 +271,7 @@ const AddUserForm = () => {
           role="dialog"
           aria-labelledby="exampleModalCenterTitle"
           aria-hidden="true"
+          data-backdrop="static"
         >
           <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
@@ -278,6 +286,7 @@ const AddUserForm = () => {
                   className="close"
                   data-dismiss="modal"
                   aria-label="Close"
+                  onClick={() => desactivarEdicion()}
                 >
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -357,7 +366,7 @@ const AddUserForm = () => {
                       <div className="col-sm-6 col-md-6 text-right">
                         <button 
                             className={
-                                modoEdicion ? 'btn btn-warning' : 'btn btn-success'
+                                modoEdicion ? 'btn btn-warning bg-custom-editar' : 'btn btn-success bg-custom-2'
                             }
                             type="submit"
                         >
@@ -368,7 +377,7 @@ const AddUserForm = () => {
                       </div>
                       <div className="col-sm-6 col-md-6">
                         <button
-                          className="btn btn-primary"
+                          className="btn btn-outline"
                           data-dismiss="modal"
                           onClick={() => desactivarEdicion()}
                         >

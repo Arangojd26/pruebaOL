@@ -87,15 +87,15 @@ const Login = (props) => {
   }, [email, pass, props.history]);
 
   return (
-    <div className="mt-5">
+    <div className="mt-md-5">
       <div className="row justify-content-center">
-        <div className="col-md-5 align-self-center mt-5 pt-5">
-            <div className="pt-4 mt-5">
+        <div className="col-lg-5 col-md-4 col-sm-12 align-self-center pt-0 mb-0 mt-md-5 pt-md-5 mt-sm-0 pb-sm-5" id="titulo-login">
+            <div className="mt-0 pt-0 pt-md-4 mt-md-5 ">
                 <h2 className="pt-5 mt-5">Aplicación <br></br> OLSoftware</h2>
                 <h5 className="mt-5">Prueba práctica Front-end</h5>
             </div>
         </div>
-        <div className="col-12 col-sm-8 col-md-5 col-xl-3" >
+        <div className="col-sm-8 col-md-6 col-lg-5 col-xl-3" >
           <div className="card Card-Login" id="Position-Card"> 
             <div className="card-body text-center mx-5 my-5">
               <h3 className="text-center pb-3 mb-4">
@@ -132,7 +132,7 @@ const Login = (props) => {
                     </div>
                   </span>
                 </div>
-                <button className="btn-primary btn-lg btn-block mt-5 mb-4" type="input">
+                <button className=" btn btn-primary btn-lg btn-block mt-5 mb-4" type="input">
                   {esRegistro ? "Registrase" : "Iniciar sesión"}
                 </button>
                 <a

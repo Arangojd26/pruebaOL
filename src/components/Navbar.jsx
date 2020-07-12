@@ -33,14 +33,14 @@ const Navbar = (props) => {
             {
                 props.firebaseUser !== null ? (
                 <div
-                    className="navbar navbar-light bg-light fixed-right"
+                    className="navbar navbar-light fixed-right"
                     id="nav-horizontal"
                 >
                     <div>
-                    <button className="navbar-toggler" type="button">
-                        <span className="navbar-toggler-icon"></span>
+                    <button className="navbar-toggler text-primary menu-nav" type="button">
+                        <i className="fa fa-bars" aria-hidden="true"></i>
                     </button>
-                    <span className="navbar-brand text-primary font-weight-bold">
+                    <span className="navbar-brand text-primary font-weight-bold" id="prueba-text">
                         Prueba Front-end
                     </span>
                     </div>
@@ -50,23 +50,23 @@ const Navbar = (props) => {
                     </Link> */}
                     <div>
                     <div className="d-flex">
-                        <span className="navbar-brand mt-2">
-                        <i className="far fa-user-circle"></i>
+                        <span className="navbar-brand pt-3">
+                            <i className="fa fa-user-circle perfil-icon"></i>
                         </span>
                         {
                             user && (
-                            <span className="navbar-text text-dark mt-2 mr-2 font-weight-bold">
-                                {user.email}
+                            <span className="navbar-text text-dark pt-3 mr-2 ">
+                                <p id="email-nav">{user.email}</p>
                             </span>
                             )
                         }
                         {
                             props.firebaseUser !== null ? (
                             <button
-                                className="btn btn-dark"
+                                className="navbar-toggler text-primary mb-1 pl-5"
                                 onClick={() => cerrarSesion()}
                             >
-                                Cerrar sesión
+                                <i className="fa fa-sign-in"></i>
                             </button>
                             ) : (
                             <NavLink className="btn btn-dark mr-2" to="/login">
@@ -87,9 +87,9 @@ const Navbar = (props) => {
           </div>
         </div>
         {
-                props.firebaseUser !== null ? (
-                    <Sidebar />
-                ) : null
+            props.firebaseUser !== null ? (
+                <Sidebar />
+            ) : null
         }
       </div>
     );

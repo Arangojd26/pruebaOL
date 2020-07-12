@@ -2,14 +2,15 @@ import React from 'react'
 import { withRouter } from "react-router-dom";
 import './styles/styles.css'
 import './styles/userTable.css'
-import { db} from '../firebase'
 import AddUserForm from './AddUserForm';
 
-const UserTable = () => {
+const UserTable = ({estadoCrear}) => {
+
+    //console.log(estadoCrear)
 
     return (
       <div>
-        <AddUserForm />
+        <AddUserForm cambiarACrear={estadoCrear} />
       </div>
     );
 }
