@@ -59,11 +59,6 @@ i.fa-bars {
 .input-group {
   box-shadow: 0 0 0px 0 rgba(84, 84, 84, 0.82);
 }
-/* #sidebar{
-    background: #1ee661;
-    color: #fff;
-    transition: all 0.3s;
-} */
 @media (min-width: 992px) {
   .sidebar {
     top: 0;
@@ -112,7 +107,6 @@ i.fa-bars {
   margin-top: -23px;
   background-color: rgb(255, 255, 255);
 
-  /* left: 15%; */
 }
 .position-container {
   left: 15%;
@@ -202,3 +196,4 @@ i.fa-bars {
     
   }
 }
+
