@@ -1,6 +1,5 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
-import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Inicio from './components/Inicio';
 import {auth} from './firebase'
@@ -24,11 +23,10 @@ function App() {
 
   return firebaseUser !== false ? (
     <Router>
-      <div className="container-fluid">
-        <Navbar firebaseUser={firebaseUser} />
+      <div className="container-fluid"> 
         <Switch>
           <Route path="/" exact>
-            <Inicio />
+            <Inicio firebaseUser={firebaseUser} />
           </Route>
           <Route path="/login">
             <Login />

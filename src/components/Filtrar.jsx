@@ -1,10 +1,9 @@
 import React from 'react'
-import { db} from '../firebase'
+import { db } from '../firebase'
 import './styles/styles.css'
 
-const Filtrar = ({setRegistros}) => {
+const Filtrar = ({ setRegistros }) => {
 
-  //const [registros, setRegistros] = React.useState([]);
   const [nombres, setNombres] = React.useState("");
   const [apellidos, setApellidos] = React.useState("");
   const [identificacion, setIdentificacion] = React.useState("");
@@ -16,34 +15,28 @@ const Filtrar = ({setRegistros}) => {
   const [id, setId] = React.useState("");
 
   const compararFiltro = (newUser, user) => {
-    
+
     return (
-      newUser.nombres === user.nombres 
+
+      newUser.nombres === user.nombres
       || newUser.apellidos === user.apellidos
       || newUser.identificacion === user.identificacion
       || newUser.rol === user.rol
       || newUser.estado === user.estado
       || newUser.telefono === user.telefono
       || newUser.correo === user.correo
-      )
+    )
   }
- 
-  
 
   const filtrarRegistros = async (e) => {
-
     e.preventDefault()
-    
-    try {
 
-      const data = await db.collection("registros").get();
+    try {
+      const data = await db.collection("registros").get()
       const arrayData = data.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }));
-
-      
-      // filtro.map(user => console.log(user))
+      }))
 
       const newUser = {
         id: id,
@@ -53,31 +46,31 @@ const Filtrar = ({setRegistros}) => {
         rol: rol,
         estado: estado,
         telefono: telefono,
-        correo: correo
-    }
-    let filtro = arrayData.filter(user => compararFiltro(newUser, user))
-    
-    
-       const arrayEditado = filtro.map(user => ({
-         id: user.id,
-         nombres: user.nombres,
-         apellidos: user.apellidos,
-         identificacion: user.identificacion,
-         rol: user.rol,
-         estado: user.estado,
-         contraseña: user.contraseña,
-         telefono: user.telefono,
-         correo: user.correo,
-       }));
-       setRegistros(arrayEditado)
-       console.log(arrayEditado)
-      
+        correo: correo,
+      }
+
+      let filtro = arrayData.filter(user => compararFiltro(newUser, user))
+
+      const arrayEditado = filtro.map(user => ({
+        id: user.id,
+        nombres: user.nombres,
+        apellidos: user.apellidos,
+        identificacion: user.identificacion,
+        rol: user.rol,
+        estado: user.estado,
+        contraseña: user.contraseña,
+        telefono: user.telefono,
+        correo: user.correo,
+      }))
+
+      setRegistros(arrayEditado)
+      console.log(arrayEditado)
     } catch (error) {
       console.log(error)
     }
-  }
+  };
 
-  function limpiarSetUsuarios(){
+  function limpiarSetUsuarios() {
     setCorreo('')
     setEstado('')
     setIdentificacion('')
@@ -87,13 +80,13 @@ const Filtrar = ({setRegistros}) => {
     setContraseña('')
     setTelefono('')
     setId('')
-}
+  }
 
-    
-    return (
+
+  return (
 
     <div className="col-lg-10 col-xl-3 mr-xl-0  mr-lg-0 content-filters ">
-    
+
       <div className="pt-2 mx-5 px-4">
         <div className="d-flex pb-4">
           <span className="text-primary pr-2 py-2">
@@ -162,19 +155,18 @@ const Filtrar = ({setRegistros}) => {
           />
           <div className="row py-4">
             <div className="col-xl-6 col-lg-6">
-              <button 
-                className="btn btn-primary bg-custom-2 w-100 py-2 filtrar" 
-                type="submit"
-                // onClick={() => filtrarRegistros()}     
+              <button
+                className="btn btn-primary bg-custom-2 w-100 py-2 filtrar"
+                type="submit"   
               >
                 Filtrar
               </button>
             </div>
             <div className="col-xl-6 col-lg-6">
-              <button 
-                className="btn btn-outline w-100 py-2 limpiar" 
-                type="button"   
-                onClick={() => limpiarSetUsuarios()}         
+              <button
+                className="btn btn-outline w-100 py-2 limpiar"
+                type="button"
+                onClick={() => limpiarSetUsuarios()}
               >
                 Limpiar
               </button>
@@ -184,7 +176,7 @@ const Filtrar = ({setRegistros}) => {
       </div>
 
     </div>
-    );
+  );
 }
 
 export default Filtrar

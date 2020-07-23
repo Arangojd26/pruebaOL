@@ -2,13 +2,15 @@ import React from 'react'
 import { withRouter } from "react-router-dom";
 import './styles/styles.css'
 import AddUserForm from './AddUserForm';
+import Navbar from './Navbar';
 
-const Inicio = () => {
+const Inicio = ({firebaseUser}) => {
 
     return (
-
-          <AddUserForm />  
-      
+      <div>
+        <Navbar firebaseUser={firebaseUser} />
+        <AddUserForm />
+      </div>
     );
 }
 

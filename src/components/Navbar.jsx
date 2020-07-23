@@ -41,7 +41,7 @@ const Navbar = (props) => {
             {
                 props.firebaseUser !== null ? (
                 <div
-                    className="navbar navbar-light fixed-right"
+                    className="navbar navbar-light "
                     id="nav-horizontal"
                 >
                     <div>
@@ -52,9 +52,7 @@ const Navbar = (props) => {
                         Prueba Front-end
                     </span>
                     </div>
-{/* <Link className="navbar-brand  pr-5" to="/">
-                    Prueba Front-end
-                    </Link> */}
+                    
                     <div>
                     <div className="d-flex">
                         <span className="navbar-brand pt-3">
