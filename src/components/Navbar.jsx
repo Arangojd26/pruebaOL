@@ -17,13 +17,21 @@ const Navbar = (props) => {
     const [user, setUser] = React.useState(null)
 
     React.useEffect(() => {
-        if(auth.currentUser){
-            console.log('Existe un usuario')
-            setUser(auth.currentUser)
-        }else{
-            console.log('No existe el usuario')
-            props.history.push('/login')
+
+        const autenticacion = () => {
+            
+            if(auth.currentUser){
+                
+                console.log('Existe un usuario')
+                setUser(auth.currentUser)
+                
+            }else{
+                console.log('No existe el usuario')
+                props.history.push('/login')
+            }
         }
+        
+        autenticacion()
     }, [props.history])
 
     return (
@@ -44,8 +52,7 @@ const Navbar = (props) => {
                         Prueba Front-end
                     </span>
                     </div>
-
-                    {/* <Link className="navbar-brand  pr-5" to="/">
+{/* <Link className="navbar-brand  pr-5" to="/">
                     Prueba Front-end
                     </Link> */}
                     <div>
@@ -81,9 +88,7 @@ const Navbar = (props) => {
                 
                 ) : null
                 
-            }
-            
-            
+            }  
           </div>
         </div>
         {

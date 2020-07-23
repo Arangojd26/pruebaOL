@@ -1,201 +1,218 @@
 // Componente donde se hace el crud completo
 
 import React from 'react'
-import { db} from '../firebase'
+import { db } from '../firebase'
 import { withRouter } from "react-router-dom";
+import Filtrar from './Filtrar';
+import './styles/styles.css'
 
 
-const AddUserForm = ({cambiarACrear}) => {
+const AddUserForm = () => {
 
 
-    const [registros, setRegistros] = React.useState([])
-    const [nombres, setNombres] = React.useState('')
-    const [apellidos, setApellidos] = React.useState('')
-    const [identificacion, setIdentificacion] = React.useState('')
-    const [rol, setRol] = React.useState('')
-    const [estado, setEstado] = React.useState('')
-    const [contraseña, setContraseña] = React.useState('')
-    const [telefono, setTelefono] = React.useState('')
-    const [correo, setCorreo] = React.useState('')
-    const [id, setId] = React.useState('')
-    
-    const [modoEdicion, setModoEdicion] = React.useState(false)
+  const [registros, setRegistros] = React.useState([])
+  const [nombres, setNombres] = React.useState('')
+  const [apellidos, setApellidos] = React.useState('')
+  const [identificacion, setIdentificacion] = React.useState('')
+  const [rol, setRol] = React.useState('')
+  const [estado, setEstado] = React.useState('')
+  const [contraseña, setContraseña] = React.useState('')
+  const [telefono, setTelefono] = React.useState('')
+  const [correo, setCorreo] = React.useState('')
+  const [id, setId] = React.useState('')
 
-    
+  const [modoEdicion, setModoEdicion] = React.useState(false)
 
-    React.useEffect(() => {
 
-        const obtenerDatos = async () => {
 
-            try {
-                
-                const data = await db.collection('registros').get()
-                const arrayData = data.docs.map(doc => ({ 
-                    id: doc.id,
-                    ...doc.data()
-                 }))
-                //  console.log(arrayData)
-                 setRegistros(arrayData)
-            } catch (error) {
-                console.log(error)
-            }
+  React.useEffect(() => {
 
+    const obtenerDatos = async () => {
+
+      try {
+
+        const data = await db.collection('registros').get()
+        const arrayData = data.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }))
+        //  console.log(arrayData)
+        setRegistros(arrayData)
+      } catch (error) {
+        console.log(error)
+      }
+
+    }
+    obtenerDatos()
+  }, [])
+
+  // Agregar usuario
+  const agregar = async (e) => {
+
+    e.preventDefault()
+
+    let validar = validarCampos();
+
+    if (validar === 'validado') {
+
+      //console.log(newUser)
+      try {
+        const newUser = {
+          nombres: nombres,
+          apellidos: apellidos,
+          identificacion: identificacion,
+          rol: rol,
+          estado: estado,
+          contraseña: contraseña,
+          telefono: telefono,
+          correo: correo
         }
-        obtenerDatos()
-    }, [])
+        const data = await db.collection('registros').add(newUser)
 
-    // Agregar usuario
-    const agregar = async (e) => {
+        setRegistros([
+          ...registros,
+          { ...newUser, id: data.id }
+        ])
 
-        e.preventDefault()
 
-        let validar = validarCampos();
 
-        if(validar === 'validado'){
-
-            //console.log(newUser)
-            try {
-                const newUser = {
-                    nombres: nombres,
-                    apellidos: apellidos,
-                    identificacion: identificacion,
-                    rol: rol,
-                    estado: estado,
-                    contraseña: contraseña,
-                    telefono: telefono,
-                    correo: correo
-                }
-                const data = await db.collection('registros').add(newUser)
-
-                setRegistros([
-                    ...registros,
-                    {...newUser, id: data.id}
-                ])
-                
-            
-
-                limpiarSetUsuarios()
-                console.log(newUser)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        
+        limpiarSetUsuarios()
+        console.log(newUser)
+      } catch (error) {
+        console.log(error)
+      }
     }
+
+  }
+
+
+
+
+  function validarCampos() {
+
+    let mensaje = 'está vacio'
+
+    if (!(nombres.trim()) || !(apellidos.trim()) || !(identificacion.trim()) || !(rol.trim())
+      || !(estado.trim()) || !(contraseña.trim()) || !(telefono.trim()) || !(correo.trim())) {
+      console.log(mensaje)
+
+    } else {
+
+      mensaje = 'validado'
+    }
+
+    return mensaje
+  }
+
+  function limpiarSetUsuarios() {
+    setCorreo('')
+    setEstado('')
+    setIdentificacion('')
+    setNombres('')
+    setApellidos('')
+    setRol('')
+    setContraseña('')
+    setTelefono('')
+    setId('')
+  }
+
+  // Eliminar usuarios
+  const eliminar = async (id) => {
+    try {
+
+      await db.collection('registros').doc(id).delete()
+
+      // Recibe los usuarios y filtra cuando el id sea distinto al id del parametro
+      const arrayFiltrado = registros.filter(user => user.id !== id)
+      setRegistros(arrayFiltrado)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const activarEdicion = (user) => {
+
+    setModoEdicion(true)
+    setNombres(user.nombres)
+    setApellidos(user.apellidos)
+    setIdentificacion(user.identificacion)
+    setRol(user.rol)
+    setEstado(user.estado)
+    setTelefono(user.telefono)
+    setContraseña(user.contraseña)
+    setCorreo(user.correo)
+    setId(user.id)
+  }
+  const desactivarEdicion = () => {
+
+    setModoEdicion(false)
+    limpiarSetUsuarios()
+  }
+
+
+
+  const editar = async (e) => {
+    e.preventDefault()
+
+    let validar = validarCampos()
+    if (validar === 'validado') {
+
+      try {
+        await db.collection('registros').doc(id).update({
+          nombres: nombres,
+          apellidos: apellidos,
+          identificacion: identificacion,
+          rol: rol,
+          estado: estado,
+          contraseña: contraseña,
+          telefono: telefono,
+          correo: correo
+        })
+        const arrayEditado = registros.map(user => (
+          user.id === id ? {
+            id: user.id,
+            nombres: nombres,
+            apellidos: apellidos,
+            identificacion: identificacion,
+            rol: rol,
+            estado: estado,
+            contraseña: contraseña,
+            telefono: telefono,
+            correo: correo
+          } : user
+        ))
+
+        setRegistros(arrayEditado)
+
+        // setModoEdicion(false)
+        limpiarSetUsuarios()
+        //setId('')
+
+
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+
+  return (
+  
+    <div className="row">
 
     
+    <div className="col-lg-10 col-xl-7 pb-5 content-table position-container">
+      <div className="d-flex p-md-5 pt-lg-2 p-xl-0 pt-xl-2">
+        <span className="text-primary pr-2 py-2">
+          <i className="fas fa-users fa-2x"></i>
+        </span>
+        <h5 className="text-primary text-center font-weight-bold p-2 mt-1">Usuarios existentes</h5>
+        <button type="button" className="btn btn-primary py-2 mr-5 ml-auto" data-toggle="modal" data-target="#exampleModalCenter" id="btn-crear">Crear</button>
 
-    
-    function validarCampos(){
-
-        let mensaje = 'está vacio'
-
-        if(!(nombres.trim()) || !(apellidos.trim()) || !(identificacion.trim()) || !(rol.trim())
-        || !(estado.trim()) || !(contraseña.trim()) || !(telefono.trim()) || !(correo.trim()))
-        {
-            console.log(mensaje)
-            
-        }else{
-
-            mensaje = 'validado'   
-        }
-
-        return mensaje
-    }
-
-    function limpiarSetUsuarios(){
-        setCorreo('')
-        setEstado('')
-        setIdentificacion('')
-        setNombres('')
-        setApellidos('')
-        setRol('')
-        setContraseña('')
-        setTelefono('')
-        setId('')
-    }
-
-    // Eliminar usuarios
-    const eliminar = async (id) => {
-        try {
-            
-            await db.collection('registros').doc(id).delete()
-
-            // Recibe los usuarios y filtra cuando el id sea distinto al id del parametro
-            const arrayFiltrado = registros.filter(user => user.id !== id)
-            setRegistros(arrayFiltrado)
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    const activarEdicion = (user) => {
-
-        setModoEdicion(true)
-        setNombres(user.nombres)
-        setApellidos(user.apellidos)
-        setIdentificacion(user.identificacion)
-        setRol(user.rol)
-        setEstado(user.estado)
-        setTelefono(user.telefono)
-        setContraseña(user.contraseña)
-        setCorreo(user.correo)
-        setId(user.id)
-    }
-    const desactivarEdicion = () => {
-
-        setModoEdicion(false)
-    }
-    
-    
-
-    const editar = async (e) => {
-        e.preventDefault()
-
-        let validar = validarCampos()
-        if(validar === 'validado'){
-
-            try {   
-                await db.collection('registros').doc(id).update({
-                    nombres: nombres,
-                    apellidos: apellidos,
-                    identificacion: identificacion,
-                    rol: rol,
-                    estado: estado,
-                    contraseña: contraseña,
-                    telefono: telefono,
-                    correo: correo
-                })
-                const arrayEditado = registros.map(user => (
-                        user.id === id ? {
-                        id: user.id, 
-                        nombres: nombres, 
-                        apellidos: apellidos,
-                        identificacion: identificacion,
-                        rol: rol,
-                        estado: estado,
-                        contraseña: contraseña,
-                        telefono: telefono,
-                        correo: correo
-                    } : user
-                ))
-                
-                setRegistros(arrayEditado)
-                
-                // setModoEdicion(false)
-                limpiarSetUsuarios()
-                //setId('')
-                
-
-            } catch (error) {
-                console.log(error)
-            }
-        }
-    }
-
-    return (
+      </div>
+      <div className=" pt-4">
       <div>
+        
         <table>
           <thead>
             <tr>
@@ -392,7 +409,18 @@ const AddUserForm = ({cambiarACrear}) => {
           </div>
         </div>
       </div>
+      </div>
+    </div>
+    {/* <div className="col-lg-10 col-xl-3  mr-xl-0  mr-lg-0 content-filters ">
+      <Filtrar setRegistros={setRegistros} />
+    </div> */}
+     <Filtrar setRegistros={setRegistros} />
+    
+    </div>
+    
+    
+      
     );
 }
- 
+
 export default withRouter(AddUserForm)
